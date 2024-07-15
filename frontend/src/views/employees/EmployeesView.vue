@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import DataWrapper from "../../layout/DataWrapper.vue"
+
+</script>
+
 <template>
-    <div>Руддщ</div>
+    <DataWrapper>
+        helo
+    </DataWrapper>
 </template>

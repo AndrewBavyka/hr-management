@@ -55,6 +55,8 @@
   --color-tertiary-5: #b215890d;
 
   --color-gray-5: #A2A1A80D;
+  --color-gray-10: #A2A1A81A;
+  --color-gray-20: #A2A1A833;
 }
 
 /* semantic color variables for this project */
@@ -64,10 +66,10 @@
 
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
   }
-}
+} */
 
 *,
 *::before,

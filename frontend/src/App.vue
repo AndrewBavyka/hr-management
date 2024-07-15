@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import AppSidebar from "./components/navigation/AppSidebar.vue"
+import AppSidebar from "@/components/navigation/AppSidebar.vue"
+import AppHeader from "@/components/header/AppHeader.vue"
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import AppSidebar from "./components/navigation/AppSidebar.vue"
 
   <main>
     <div class="content">
+      <AppHeader />
       <RouterView />
     </div>
   </main>
@@ -23,7 +25,6 @@ main {
 
 .content {
   /* padding-top: 1.875rem; */
-  background-color: red;
   margin: 0 min(10vw, 1.875rem);
 }
 </style>
