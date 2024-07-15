@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --color-primary-500: #7152F3;
+  --color-secondary-500: #a3d139ff;
+  --color-tertiary-500: #b21589ff;
+  --color-dark-500: #16151cff;
+  --color-gray-500: #a2a1a8ff;
+  --color-light-500: #d9e1e1ff;
+  --color-white-500: #ffffffff;
+
+  /* Primary shades */
+  --color-primary-100: #e6e2f8ff;
+  --color-primary-200: #cec4f6ff;
+  --color-primary-300: #b2a2f9ff;
+  --color-primary-400: #9178faff;
+  --color-primary-600: #5d3de7ff;
+  --color-primary-700: #4f31d0ff;
+  --color-primary-800: #3517b4ff;
+  --color-primary-900: #250c92ff;
+  --color-primary-90: #7152f3e6;
+  --color-primary-80: #7152f3cc;
+  --color-primary-20: #7152f333;
+  --color-primary-10: #7152f31a;
+  --color-primary-5: #7152f30d;
+
+  /* Secondary shades */
+  --color-secondary-100: #e1f1bcff;
+  --color-secondary-200: #cee993ff;
+  --color-secondary-300: #bcde6bff;
+  --color-secondary-400: #afd751ff;
+  --color-secondary-600: #97bd33ff;
+  --color-secondary-700: #88a52aff;
+  --color-secondary-800: #798d21ff;
+  --color-secondary-900: #626615ff;
+  --color-secondary-90: #a3d139e6;
+  --color-secondary-80: #a3d139cc;
+  --color-secondary-20: #a3d13933;
+  --color-secondary-10: #a3d1391a;
+  --color-secondary-5: #a3d1390d;
+
+  /* Tertiary shades */
+  --color-tertiary-100: #f0b0d9ff;
+  --color-tertiary-200: #e67bc2ff;
+  --color-tertiary-300: #d846abff;
+  --color-tertiary-400: #cd0d9bff;
+  --color-tertiary-600: #af0a87ff;
+  --color-tertiary-700: #9b0982ff;
+  --color-tertiary-800: #881174ff;
+  --color-tertiary-900: #730667ff;
+  --color-tertiary-90: #b21589e6;
+  --color-tertiary-80: #b21589cc;
+  --color-tertiary-20: #b2158933;
+  --color-tertiary-10: #b215891a;
+  --color-tertiary-5: #b215890d;
+
+  --color-gray-5: #A2A1A80D;
+}
+
+/* semantic color variables for this project */
+:root {
+  --sidebar-background: var(--color-gray-5);
+  --sidebar-color-links: var(--color-dark-500);
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  /* Regular Fonts */
+  --font-header-1-regular: 300 80px/100px 'Inter';
+  --font-header-2-regular: 300 60px/75px 'Inter';
+  --font-header-3-regular: 300 40px/50px 'Inter';
+  --font-header-4-regular: 300 30px/40px 'Inter';
+  --font-header-5-regular: 300 24px/36px 'Inter';
+  --font-header-6-regular: 300 20px/30px 'Inter';
+  --font-header-7-regular: 300 18px/26px 'Inter';
+  --font-body-1-regular: 300 16px/24px 'Inter';
+  --font-body-2-regular: 300 14px/22px 'Inter';
+  --font-caption-regular: 300 12px/18px 'Inter';
+  --font-label-regular: 300 11px/16px 'Inter';
+
+  /* Bold Fonts */
+  --font-header-1-bold: 600 80px/100px 'Inter';
+  --font-header-2-bold: 600 60px/75px 'Inter';
+  --font-header-3-bold: 600 40px/50px 'Inter';
+  --font-header-4-bold: 600 30px/40px 'Inter';
+  --font-header-5-bold: 600 24px/36px 'Inter';
+  --font-header-6-bold: 600 20px/30px 'Inter';
+  --font-header-7-bold: 600 18px/26px 'Inter';
+  --font-body-1-bold: 600 16px/24px 'Inter';
+  --font-body-2-bold: 600 14px/22px 'Inter';
+  --font-caption-bold: 600 12px/18px 'Inter';
+  --font-label-bold: 600 11px/16px 'Inter';
+}
+
+:root{
+  --corner-radius-20: 20px; 
+  --corner-radius-10: 10px; 
+}
