@@ -1,4 +1,7 @@
 import './assets/main.css'
+// AWC-UI
+import './components/awc-ui/global.css'
+import './components/awc-ui/index.js'
 
 import { createApp } from 'vue'
 import App from './App.vue'
