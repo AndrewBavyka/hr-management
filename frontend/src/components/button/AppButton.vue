@@ -1,18 +1,23 @@
 <script lang="ts" setup>
+import { defineProps } from 'vue';
+
+type ButtonType = "button" | "submit" | "reset" | undefined;
+
 const props = defineProps({
-    type: String,
+    type: {
+        type: String as () => ButtonType,
+        default: "button" as ButtonType,
+    },
     name: String,
     disabled: Boolean,
 })
 </script>
-
 
 <template>
     <button class="app-button" :name="props.name" :disabled="props.disabled" :type="props.type">
         <slot></slot>
     </button>
 </template>
-
 
 <style scoped>
 .app-button {

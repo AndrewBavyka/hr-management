@@ -1,17 +1,46 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 const props = defineProps({
-    type: String,
     name: String,
     value: String,
+    label: String,
+    type: String,
     placeholder: String,
+    maxlength: String,
+    minlength: String,
+    max: String,
+    min: String,
+    size: String,
+    autocomplete: String,
+    hint: String,
+    customError: String,
+    pattern: String,
+    step: String,
     disabled: Boolean,
+    autofocus: Boolean,
+    required: Boolean,
+    readonly: Boolean,
+    staticError: Boolean,
+    modelValue: String,
 })
+
+const emit = defineEmits(["update:modelValue"]);
+
+const textValue = ref(props.modelValue);
+
+emit("update:modelValue", textValue);
+
 </script>
 
 
 <template>
-    <input class="app-input" :name="props.name" :value="props.value" :disabled="props.disabled"
-        :placeholder="props.placeholder" :type="props.type">
+    <awc-input v-model="textValue" :name="props.name" :label="props.label" :type="props.type"
+        :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength" :max="props.max"
+        :min="props.min" :step="props.step" :size="props.size" :disabled="props.disabled" :required="props.required"
+        :readonly="props.readonly" :hint="props.hint" :autocomplete="props.autocomplete" :autofocus="props.autofocus"
+        :pattern="props.pattern" :customError="props.customError" :staticError="props.staticError">
+    </awc-input>
 </template>
 
 
