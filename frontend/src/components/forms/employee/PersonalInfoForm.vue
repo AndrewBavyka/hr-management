@@ -13,8 +13,10 @@ interface FormData {
   materialStatus: string
   mobileNumber: string
   gender: string
+  designation: string
   nationality: string
   address: string
+  joining_date: string
   city: string
   state: string
   zipCode: string
@@ -28,7 +30,9 @@ const formData = reactive<FormData>({
   dateOfBirth: '',
   materialStatus: '',
   mobileNumber: '',
+  joining_date: "ДАТА ПРИСОЕДИНЕНИЯ",
   gender: '',
+  designation: 'должность',
   nationality: '',
   address: '',
   city: '',
@@ -50,7 +54,7 @@ const handleSubmit = () => {
   console.log(formData)
 
   axios
-    .post('/api/employee/personal-info', formData)
+    .post('http://localhost:3000/api/employee/personal-info', formData)
     .then((response) => {
       console.log('Response:', response.data)
     })

@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  employee_id        Int       @id @default(autoincrement())
+  first_name         String
+  last_name          String
+  mobile_number      String
+  email_address      String
+  gender             String
+  nationality        String
+  address            String
+  city_id            Int
+  state_id           Int
+  zip_code           String
+  user_name          String
+  employee_type_id   Int
+  department_id      Int
+  designation        String
+  working_days_id    Int
+  joining_date       String
+  office_location_id Int
+  user_photo         String
+
+  city           City            @relation(fields: [city_id], references: [city_id])
+  state          State           @relation(fields: [state_id], references: [state_id])
+  employee_type  EmployeeType    @relation(fields: [employee_type_id], references: [employee_type_id])
+  department     Department      @relation(fields: [department_id], references: [department_id])
+  working_days   WorkingDays     @relation(fields: [working_days_id], references: [working_days_id])
+  office_location OfficeLocation  @relation(fields: [office_location_id], references: [office_location_id])
+  documents      Documents[]
+  account_access AccountAccess[]
+}
+
+model Documents {
+  document_id   Int    @id @default(autoincrement())
+  employee_id   Int
+  document_type String
+  document_path String
+
+  employee Employee @relation(fields: [employee_id], references: [employee_id])
+}
+
+model AccountAccess {
+  account_access_id Int    @id @default(autoincrement())
+  employee_id       Int
+  email_address     String
+  slack_id          String
+  skype_id          String
+  github_id         String
+
+  employee Employee @relation(fields: [employee_id], references: [employee_id])
+}
+
+model City {
+  city_id   Int    @id @default(autoincrement())
+  city_name String
+
+  employees Employee[]
+}
+
+model State {
+  state_id   Int    @id @default(autoincrement())
+  state_name String
+
+  employees Employee[]
+}
+
+model EmployeeType {
+  employee_type_id Int    @id @default(autoincrement())
+  type_name        String
+
+  employees Employee[]
+}
+
+model Department {
+  department_id   Int    @id @default(autoincrement())
+  department_name String
+
+  employees Employee[]
+}
+
+model WorkingDays {
+  working_days_id Int    @id @default(autoincrement())
+  days_per_week   Int
+
+  employees Employee[]
+}
+
+model OfficeLocation {
+  office_location_id Int    @id @default(autoincrement())
+  location_name      String
+
+  employees Employee[]
+}

@@ -43,10 +43,13 @@ const staticData: Department[] = [
 // Запрос на все департмаенты
 const demoData = ref<Department[]>([])
 
+
+
 onMounted(() => {
   axios
-    .get('/api/all-departments')
+    .get('http://localhost:3000/api/departments/all-departments')
     .then((response) => {
+      console.log(response);
       const data = response.data
       demoData.value = data
       loading.value = false

@@ -15,7 +15,7 @@ const handleSubmit = () => {
   console.log(formData)
 
   axios
-    .post('/api/departments/new-department', formData)
+    .post('http://localhost:3000/api/departments/new-department', formData)
     .then((response) => {
       console.log('Response:', response.data)
     })
