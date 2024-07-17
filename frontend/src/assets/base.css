@@ -2,12 +2,12 @@
 
 :root {
   --color-primary-500: #7152F3;
-  --color-secondary-500: #a3d139ff;
-  --color-tertiary-500: #b21589ff;
-  --color-dark-500: #16151cff;
-  --color-gray-500: #a2a1a8ff;
-  --color-light-500: #d9e1e1ff;
-  --color-white-500: #ffffffff;
+  --color-secondary-500: #a3d139;
+  --color-tertiary-500: #b21589;
+  --color-dark-500: #16151c;
+  --color-gray-500: #a2a1a8;
+  --color-light-500: #d9e1e1;
+  --color-white-500: #ffffff;
 
   /* Primary shades */
   --color-primary-100: #e6e2f8ff;

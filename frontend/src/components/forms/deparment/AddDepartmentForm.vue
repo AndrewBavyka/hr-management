@@ -4,34 +4,18 @@ import axios from 'axios'
 import AppInput from '@/components/input/AppInput.vue'
 
 interface FormData {
-  email: string
-  slackId: string
-  skypeId: string
-  githubId: string
+  nameDepartment: string
 }
 
 const formData = reactive<FormData>({
-  email: '',
-  slackId: '',
-  skypeId: '',
-  githubId: ''
+  nameDepartment: ''
 })
 
-const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
-
 const handleSubmit = () => {
-  if (!isValidEmail(formData.email)) {
-    alert('Please enter a valid email address')
-    return
-  }
-
   console.log(formData)
 
   axios
-    .post('/api/employee/personal-info', formData)
+    .post('/api/departments/new-department', formData)
     .then((response) => {
       console.log('Response:', response.data)
     })
@@ -45,19 +29,12 @@ const handleSubmit = () => {
   <form @submit.prevent="handleSubmit">
     <div class="form__wrapper">
       <awc-stack full-width align-items="center" gap="l">
-        <awc-stack gap="l" full-width flex-direction="column">
-          <AppInput
-            name="test"
-            type="text"
-            placeholder="Enter Email Address"
-            v-model="formData.email"
-          />
-          <AppInput type="text" placeholder="Enter Skype ID" v-model="formData.skypeId" />
-        </awc-stack>
-        <awc-stack gap="l" full-width flex-direction="column">
-          <AppInput type="text" placeholder="Enter Slack ID" v-model="formData.slackId" />
-          <AppInput type="text" placeholder="Enter Github ID" v-model="formData.githubId" />
-        </awc-stack>
+        <AppInput
+          name="test"
+          type="text"
+          placeholder="Enter Department Name"
+          v-model="formData.nameDepartment"
+        />
       </awc-stack>
 
       <awc-stack justify-content="end">
