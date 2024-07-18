@@ -1,85 +1,30 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import axios from 'axios'
+import { reactive, watch, defineProps, defineEmits } from 'vue'
 import AppInput from '@/components/input/AppInput.vue'
 
-interface FormData {
-  email: string
-  slackId: string
-  skypeId: string
-  githubId: string
-}
-
-const formData = reactive<FormData>({
-  email: '',
-  slackId: '',
-  skypeId: '',
-  githubId: ''
+const props = defineProps({
+  modelValue: Object
 })
 
-const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
+const emits = defineEmits(['update:modelValue'])
 
-const handleSubmit = () => {
-  if (!isValidEmail(formData.email)) {
-    alert('Please enter a valid email address')
-    return
-  }
+const formData = reactive({ ...props.modelValue })
 
-  console.log(formData)
-
-  axios
-    .post('/api/employee/personal-info', formData)
-    .then((response) => {
-      console.log('Response:', response.data)
-    })
-    .catch((error) => {
-      console.error('Error:', error)
-    })
-}
+watch(
+  formData,
+  (newVal) => {
+    emits('update:modelValue', newVal)
+  },
+  { deep: true }
+)
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
-    <div class="form__wrapper">
-      <awc-stack full-width align-items="center" gap="l">
-        <awc-stack gap="l" full-width flex-direction="column">
-          <AppInput
-            name="test"
-            type="text"
-            placeholder="Enter Email Address"
-            v-model="formData.email"
-          />
-          <AppInput type="text" placeholder="Enter Skype ID" v-model="formData.skypeId" />
-        </awc-stack>
-        <awc-stack gap="l" full-width flex-direction="column">
-          <AppInput type="text" placeholder="Enter Slack ID" v-model="formData.slackId" />
-          <AppInput type="text" placeholder="Enter Github ID" v-model="formData.githubId" />
-        </awc-stack>
-      </awc-stack>
-
-      <awc-stack justify-content="end">
-        <awc-button
-          @click="$router.back()"
-          type="reset"
-          size="large"
-          variant="transparent"
-          background="gray"
-          >Cancel</awc-button
-        >
-        <awc-button size="large" type="submit">Next</awc-button>
-      </awc-stack>
-    </div>
-  </form>
+  <awc-stack full-width align-items="center" gap="l">
+    <awc-stack gap="l" full-width flex-direction="column">
+      <AppInput type="text" placeholder="Ссылка на Telegram" v-model="formData.telegram_link" />
+      <AppInput type="text" placeholder="Ссылка на Slack" v-model="formData.slack_link" />
+      <AppInput type="text" placeholder="Ссылка на GitHub" v-model="formData.github_link" />
+    </awc-stack>
+  </awc-stack>
 </template>
-
-<style scoped>
-.form__wrapper {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-</style>

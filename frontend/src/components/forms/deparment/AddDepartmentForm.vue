@@ -1,27 +1,36 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import axios from 'axios'
-import AppInput from '@/components/input/AppInput.vue'
+import {
+  addDepartments,
+  addPosition,
+  type NewDepartment,
+  type NewPosition
+} from '@/api/departments/departments'
+import AppInput from '../../input/AppInput.vue'
 
-interface FormData {
-  nameDepartment: string
-}
-
-const formData = reactive<FormData>({
-  nameDepartment: ''
+const departmentData = reactive<NewDepartment>({
+  name_department: ''
 })
 
-const handleSubmit = () => {
-  console.log(formData)
+const positionData = reactive<NewPosition>({
+  name: '',
+  department_id: 0
+})
 
-  axios
-    .post('/api/departments/new-department', formData)
-    .then((response) => {
-      console.log('Response:', response.data)
-    })
-    .catch((error) => {
-      console.error('Error:', error)
-    })
+const handleSubmit = async () => {
+  console.log({ ...departmentData })
+  console.log({ ...positionData })
+
+  const createdDepartment = await addDepartments({
+    name_department: departmentData.name_department
+  })
+
+  positionData.department_id = createdDepartment.id
+
+  await addPosition({ name: positionData.name, department_id: positionData.department_id })
+
+  departmentData.name_department = ''
+  positionData.name = ''
 }
 </script>
 
@@ -30,11 +39,15 @@ const handleSubmit = () => {
     <div class="form__wrapper">
       <awc-stack full-width align-items="center" gap="l">
         <AppInput
-          name="test"
+          name="department"
           type="text"
-          placeholder="Enter Department Name"
-          v-model="formData.nameDepartment"
+          placeholder="Название отдела"
+          v-model="departmentData.name_department"
         />
+      </awc-stack>
+
+      <awc-stack full-width align-items="center" gap="l">
+        <AppInput name="position" type="text" placeholder="Должность" v-model="positionData.name" />
       </awc-stack>
 
       <awc-stack justify-content="end">
@@ -44,9 +57,9 @@ const handleSubmit = () => {
           size="large"
           variant="transparent"
           background="gray"
-          >Cancel</awc-button
+          >Отмена</awc-button
         >
-        <awc-button size="large" type="submit">Next</awc-button>
+        <awc-button size="large" type="submit">Создать</awc-button>
       </awc-stack>
     </div>
   </form>

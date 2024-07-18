@@ -1,61 +1,20 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import { fetchDepartments, type AllDepartments } from '@/api/departments/departments'
 import DataWrapper from '@/layout/DataWrapper.vue'
 import AppInput from '@/components/input/AppInput.vue'
 import DepartmentsCard from '@/components/card/DepartmentsCard.vue'
 
-interface UserInfo {
-  name: string
-  designation: string
-  profileLink: string
-}
-
-interface Department {
-  name: string
-  countMembers: number
-  users: UserInfo[]
-}
+const departments = ref<AllDepartments[]>([])
 
 const loading = ref(true)
 
-// Демо статичные данные
-const staticData: Department[] = [
-  {
-    name: 'Design Department',
-    countMembers: 3,
-    users: [
-      { name: 'Виктор', designation: 'Designer', profileLink: 'https://example.com/viktor' },
-      { name: 'Анна', designation: 'Designer', profileLink: 'https://example.com/anna' },
-      { name: 'Дмитрий', designation: 'Designer', profileLink: 'https://example.com/dmitry' }
-    ]
-  },
-  {
-    name: 'Development Department',
-    countMembers: 2,
-    users: [
-      { name: 'Иван', designation: 'Developer', profileLink: 'https://example.com/ivan' },
-      { name: 'Мария', designation: 'Developer', profileLink: 'https://example.com/maria' }
-    ]
-  }
-]
+const fetchAllDepartments = async () => {
+  departments.value = await fetchDepartments()
+  loading.value = false
+}
 
-// Запрос на все департмаенты
-const demoData = ref<Department[]>([])
-
-onMounted(() => {
-  axios
-    .get('/api/all-departments')
-    .then((response) => {
-      const data = response.data
-      demoData.value = data
-      loading.value = false
-    })
-    .catch((error) => {
-      console.error(error)
-      loading.value = false
-    })
-})
+onMounted(fetchAllDepartments)
 </script>
 
 <template>
@@ -68,7 +27,7 @@ onMounted(() => {
       <RouterLink to="/departments/new" custom v-slot="{ navigate, href }">
         <awc-button size="large" filling :href="href" @click="navigate">
           <awc-icon type="icon" size="24" name="add_medium"></awc-icon>
-          Add New Department
+          Добавить отдел
         </awc-button>
       </RouterLink>
     </template>
@@ -83,13 +42,13 @@ onMounted(() => {
         </awc-stack>
       </awc-stack>
     </div>
-    <awc-stack justify-content="space-between" v-else-if="staticData.length > 0">
+    <awc-stack justify-content="space-between" v-else-if="departments.length > 0">
       <DepartmentsCard
-        v-for="department in staticData"
-        :key="department.name"
-        :name-department="department.name"
-        :count-members="department.countMembers.toString()"
-        :users="department.users"
+        v-for="department in departments"
+        :key="department.name_department"
+        :name-department="department.name_department"
+        :count-members="department.countMembers?.toString() || '0'"
+        :users="department.employees"
       />
     </awc-stack>
     <div v-else>Нет данных для отображения.</div>

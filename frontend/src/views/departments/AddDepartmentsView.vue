@@ -6,6 +6,7 @@ import AddDepartmentForm from '../../components/forms/deparment/AddDepartmentFor
 <template>
   <DataWrapper>
     <AddDepartmentForm />
+
     <template #data-wrapper-button>
       <awc-button
         @click="$router.back()"
@@ -13,9 +14,9 @@ import AddDepartmentForm from '../../components/forms/deparment/AddDepartmentFor
         size="large"
         variant="transparent"
         background="gray"
-        >Cancel</awc-button
+        >Отмена</awc-button
       >
-      <awc-button size="large" type="submit">Create New Department</awc-button>
+      <awc-button size="large" type="submit">Создать</awc-button>
     </template>
   </DataWrapper>
 </template>

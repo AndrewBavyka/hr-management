@@ -2,12 +2,7 @@
 import { type PropType } from 'vue'
 import AppTitle from '../title/AppTitle.vue'
 import AppUserInfo from '../user-info/AppUserInfo.vue'
-
-interface UserInfo {
-  name: string
-  designation: string
-  profileLink: string
-}
+import { type EmployeesInfo } from '@/api/departments/departments'
 
 const props = defineProps({
   nameDepartment: {
@@ -15,12 +10,10 @@ const props = defineProps({
     required: true
   },
   countMembers: {
-    type: String,
-    required: true
+    type: String
   },
   users: {
-    type: Array as PropType<UserInfo[]>,
-    required: true
+    type: Array as PropType<EmployeesInfo[]>
   }
 })
 </script>
@@ -37,7 +30,7 @@ const props = defineProps({
         v-for="user in props.users"
         :key="user.name"
         :name="user.name"
-        :description="user.designation"
+        :description="user.position"
       />
     </div>
   </div>

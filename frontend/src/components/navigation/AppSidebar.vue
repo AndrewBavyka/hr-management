@@ -9,18 +9,26 @@ interface NavigationLink {
 
 const sidebarLinks: NavigationLink[] = [
   // { iconPath: 'src/assets/icons/sidebar/dashboard.svg', name: 'Dashboard', href: '/' },
-  { iconPath: 'src/assets/icons/sidebar/employees.svg', name: 'All Employees', href: '/employees' },
+  {
+    iconPath: 'src/assets/icons/sidebar/dashboard.svg',
+    name: 'Организация',
+    href: '/organization'
+  },
+  {
+    iconPath: 'src/assets/icons/sidebar/employees.svg',
+    name: 'Все сотрудники',
+    href: '/employees'
+  },
   {
     iconPath: 'src/assets/icons/sidebar/departments.svg',
-    name: 'All Departments',
+    name: 'Все отделы',
     href: '/departments'
   },
-  { iconPath: 'src/assets/icons/sidebar/jobs.svg', name: 'Jobs', href: '/jobs' }
-  // {
-  //     iconPath: 'src/assets/icons/sidebar/notification.svg',
-  //     name: 'Notification',
-  //     href: '/notification'
-  // }
+  {
+    iconPath: 'src/assets/icons/sidebar/jobs.svg',
+    name: 'Матрица компетенций',
+    href: '/competency'
+  }
 ]
 
 const formatingAltAttribute = (altName: string) => `${altName.toLowerCase()}-icon`
