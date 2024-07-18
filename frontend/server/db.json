@@ -1,0 +1,93 @@
+{
+  "employees": [
+    {
+      "id": "a471",
+      "user_photo": "",
+      "first_name": "Андрей",
+      "last_name": "Бавыка",
+      "email": "abavyka@list.ru",
+      "date_of_birth": "2024-07-11",
+      "material_status": "Женат",
+      "mobile_number": "89222355857",
+      "gender": "Мужской",
+      "nationality": "Русский",
+      "city": "City B",
+      "address": "abavyka@list.ru",
+      "employee_type": "Работник",
+      "working_days": "Понедельник",
+      "grade": "",
+      "work_mail": "",
+      "office_location": "Chelyabinsk",
+      "joing_date": "2024-07-18",
+      "department": "Разработчики",
+      "position": "Фронтиндер",
+      "slack_link": "Slack",
+      "telegram_link": "Telegram",
+      "github_link": "GitHub"
+    },
+    {
+      "id": "73c3",
+      "user_photo": "",
+      "first_name": "Виктор",
+      "last_name": "Степанов",
+      "email": "test@mail.ru",
+      "date_of_birth": "2024-07-04",
+      "material_status": "Разведен",
+      "mobile_number": "89222355857",
+      "gender": "Мужской",
+      "nationality": "Русский",
+      "city": "City A",
+      "address": "abavyka@list.ru",
+      "employee_type": "Стажер",
+      "working_days": "Понедельник",
+      "grade": "",
+      "work_mail": "",
+      "office_location": "Moscow",
+      "joing_date": "2024-07-27",
+      "department": "Дизайнеры",
+      "position": "Стандартный дизик",
+      "slack_link": "",
+      "telegram_link": "",
+      "github_link": ""
+    }
+  ],
+  "departments": [
+    {
+      "id": "9af2",
+      "department": {
+        "name": "Разработчики"
+      },
+      "positions": [
+        {
+          "name": "Фронтиндер"
+        }
+      ]
+    },
+    {
+      "id": "bb41",
+      "department": {
+        "name": "Дизайнеры"
+      },
+      "positions": [
+        {
+          "name": "Стандартный дизик"
+        }
+      ]
+    }
+  ],
+  "competencies": [
+    {
+      "id": "f28a",
+      "name": "Фронтиндер",
+      "criteria": [
+        {
+          "name": "Текст",
+          "descriptions": [
+            "Быть крутым",
+            "Быть славным"
+          ]
+        }
+      ]
+    }
+  ]
+}

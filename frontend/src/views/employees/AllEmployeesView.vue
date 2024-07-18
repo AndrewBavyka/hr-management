@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
-import { demoFetchEmployeeData, type Employee } from '@/api/employee/employee'
+import { type Employee, fetchEmployeeData } from '@/api/employee/employee'
 
 import DataWrapper from '@/layout/DataWrapper.vue'
 import AppInput from '@/components/input/AppInput.vue'
@@ -9,7 +9,7 @@ import AppInput from '@/components/input/AppInput.vue'
 const employee = ref<Employee | null>(null)
 
 const fetchAllDepartments = async () => {
-  employee.value = await demoFetchEmployeeData()
+  employee.value = await fetchEmployeeData()
 }
 
 onMounted(fetchAllDepartments)

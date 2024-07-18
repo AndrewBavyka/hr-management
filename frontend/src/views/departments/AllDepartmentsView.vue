@@ -1,17 +1,21 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { fetchDepartments, type AllDepartments } from '@/api/departments/departments'
+import { type AllDepartments, fetchDepartments } from '@/api/departments/departments'
 import DataWrapper from '@/layout/DataWrapper.vue'
 import AppInput from '@/components/input/AppInput.vue'
 import DepartmentsCard from '@/components/card/DepartmentsCard.vue'
 
 const departments = ref<AllDepartments[]>([])
-
 const loading = ref(true)
 
 const fetchAllDepartments = async () => {
-  departments.value = await fetchDepartments()
-  loading.value = false
+  try {
+    departments.value = await fetchDepartments()
+  } catch (error) {
+    console.error('Error fetching all departments:', error)
+  } finally {
+    loading.value = false
+  }
 }
 
 onMounted(fetchAllDepartments)
@@ -47,7 +51,7 @@ onMounted(fetchAllDepartments)
         v-for="department in departments"
         :key="department.name_department"
         :name-department="department.name_department"
-        :count-members="department.countMembers?.toString() || '0'"
+        :count-members="department.countMembers.toString()"
         :users="department.employees"
       />
     </awc-stack>

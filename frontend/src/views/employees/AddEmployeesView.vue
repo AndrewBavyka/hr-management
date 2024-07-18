@@ -8,7 +8,7 @@ import {
   type EmployeeAccountAccess
 } from '../../api/employee/employee'
 
-import { type Department, type Position } from '../../api/departments/departments'
+import { type Department } from '../../api/departments/departments'
 import DataWrapper from '@/layout/DataWrapper.vue'
 import AppTabs from '../../components/tabs/AppTabs.vue'
 import PersonalInfoForm from '../../components/forms/employee/PersonalInfoForm.vue'
@@ -44,7 +44,8 @@ const professionalInfoData = ref<EmployeeProffessionalInfo>({
   work_mail: '',
   office_location: '',
   joing_date: '',
-  departments: []
+  department: "", 
+  position: "", 
 })
 
 const accountAccessData = ref<EmployeeAccountAccess>({
@@ -54,20 +55,23 @@ const accountAccessData = ref<EmployeeAccountAccess>({
 })
 
 const departments = ref<Department[]>([])
-const positions = ref<Position[]>([])
+const positions = ref<string[]>([]) 
 
 const changeTab = (tabName: string) => {
   selectedTab.value = tabName
 }
 
 onMounted(async () => {
-  const { departments: fetchedDepartments, positions: fetchedPositions } =
-    await fetchDepartmentsAndPositions()
+  const departmentsAndPositions = await fetchDepartmentsAndPositions()
 
-  departments.value = fetchedDepartments
-  positions.value = fetchedPositions
-  professionalInfoData.value.departments = fetchedDepartments
+  departments.value = departmentsAndPositions.departments.map(dep => dep.department.name)
+  positions.value = departmentsAndPositions.departments.flatMap(dep => dep.positions.map(pos => pos.name))
+
+
+  professionalInfoData.value.departments = departments.value
+  professionalInfoData.value.positions = positions.value
 })
+
 
 const submitFormData = async () => {
   const employeeData = {
@@ -76,14 +80,10 @@ const submitFormData = async () => {
     ...accountAccessData.value
   }
 
-  console.log({ ...employeeData })
+  const { departments, positions, ...cleanedEmployeeData } = employeeData
 
-  try {
-    const response = await addEmployee(employeeData)
-    console.log('Employee added successfully:', response)
-  } catch (error) {
-    console.error('Error adding employee:', error)
-  }
+await addEmployee(cleanedEmployeeData)
+
 }
 
 const handleNext = () => {
@@ -91,9 +91,7 @@ const handleNext = () => {
 
   if (currentIndex < tabs.length - 1) {
     selectedTab.value = tabs[currentIndex + 1].name
-  } else {
-    submitFormData()
-  }
+  } 
 }
 </script>
 

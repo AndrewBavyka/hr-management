@@ -28,8 +28,8 @@ const props = defineProps({
     <div class="departments-card__main">
       <AppUserInfo
         v-for="user in props.users"
-        :key="user.name"
-        :name="user.name"
+        :key="user.id"
+        :name="`${user.first_name} ${user.last_name}`"
         :description="user.position"
       />
     </div>

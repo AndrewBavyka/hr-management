@@ -1,88 +1,79 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/';
+const API_URL = 'http://localhost:3000';
 
 export interface Department {
     id: number;
-    name_department: string;
-    countMembers: number;
+    name: string;
     positions: Position[];
 }
 
 export interface EmployeesInfo {
-    id: number;
-    name: string;
+    id: string;
+    user_photo: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    date_of_birth: string;
+    material_status: string;
+    mobile_number: string;
+    gender: string;
+    nationality: string;
+    city: string;
+    address: string;
+    employee_type: string;
+    working_days: string;
+    grade: string;
+    work_mail: string;
+    office_location: string;
+    joing_date: string;
+    department: string;
     position: string;
-    profileLink: string;
-    departmentId: number;
+    slack_link: string;
+    telegram_link: string;
+    github_link: string;
 }
 
 export interface Position {
-    id: number;
     name: string;
-    departmentId: number;
-}
-
-export interface NewDepartment {
-    name_department: string;
-}
-
-export interface NewPosition {
-    name: string;
-    department_id: number;
 }
 
 export interface AllDepartments {
-    id: number;
     name_department: string;
     countMembers: number;
-    positions: Position[];
     employees: EmployeesInfo[];
 }
 
 export const fetchDepartments = async (): Promise<AllDepartments[]> => {
     try {
-        const response = await axios.get(`${API_URL}/departments`);
-        const departments: Department[] = response.data;
+        const departmentsResponse = await axios.get(`${API_URL}/departments`);
+        const departmentsData: any[] = departmentsResponse.data;
 
-        const usersResponse = await axios.get(`${API_URL}/users`);
-        const users: EmployeesInfo[] = usersResponse.data;
+        const employeesResponse = await axios.get(`${API_URL}/employees`);
+        const employeesData: EmployeesInfo[] = employeesResponse.data;
 
-        const positionsResponse = await axios.get(`${API_URL}/positions`);
-        const positions: Position[] = positionsResponse.data;
-
-        return departments.map(department => {
-            const departmentUsers = users.filter(user => user.departmentId === department.id);
-            const departmentPositions = positions.filter(position => position.departmentId === department.id);
+        const departments: AllDepartments[] = departmentsData.map(department => {
+            const departmentEmployees = employeesData.filter(employee => employee.department === department.department.name);
             return {
-                ...department,
-                employees: departmentUsers,
-                countMembers: departmentUsers.length,
-                positions: departmentPositions,
+                name_department: department.department.name,
+                countMembers: departmentEmployees.length,
+                employees: departmentEmployees
             };
         });
+        
+        return departments;
     } catch (error) {
         console.error('Error fetching departments:', error);
         throw error;
     }
-
 };
 
-export const addDepartments = async (department: NewDepartment): Promise<Department> => {
+export const addDepartmentsWithPositions = async (department: { name: string }, positions: { name: string }[]): Promise<Department> => {
     try {
-        const response = await axios.post(`${API_URL}/departments/new`, department);
+        const response = await axios.post(`${API_URL}/departments`, { department, positions });
         return response.data;
     } catch (error) {
-        console.error('Error adding departments:', error);
-        throw error;
-    }
-};
-
-export const addPosition = async (position: NewPosition): Promise<void> => {
-    try {
-        await axios.post(`${API_URL}/positions/new`, position);
-    } catch (error) {
-        console.error('Error adding position:', error);
+        console.error('Error adding department with positions:', error);
         throw error;
     }
 };
@@ -96,9 +87,9 @@ export const removeDepartments = async (id: number): Promise<void> => {
     }
 };
 
-export const fetchUsers = async (): Promise<EmployeesInfo[]> => {
+export const fetchEmployees = async (): Promise<EmployeesInfo[]> => {
     try {
-        const response = await axios.get(`${API_URL}/users`);
+        const response = await axios.get(`${API_URL}/employees`);
         return response.data;
     } catch (error) {
         console.error('Error fetching users:', error);

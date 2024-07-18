@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { type Department, type Position } from '../departments/departments';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3000';
 
 export interface Employee {
     user_photo: string;
@@ -24,7 +24,8 @@ export interface Employee {
     slack_link: string;
     telegram_link: string;
     github_link: string;
-    departments: Department[];
+    department: string;
+    position: string;
 }
 
 export interface EmployeePersonalInfo {
@@ -43,12 +44,13 @@ export interface EmployeePersonalInfo {
 
 export interface EmployeeProffessionalInfo {
     employee_type: string;
-    departments: Department[];
     working_days: string[];
     grade: string;
     work_mail: string;
     office_location: string;
     joing_date: string;
+    position: string;
+    department: string;
 }
 
 export interface EmployeeAccountAccess {
@@ -58,10 +60,13 @@ export interface EmployeeAccountAccess {
 }
 
 // Получение всех данных сотрудника
-export const fetchEmployeeData = async (employeeId: number): Promise<Employee> => {
+export const fetchEmployeeData = async (): Promise<Employee> => {
     try {
-        const response = await axios.get(`${API_URL}/employees/${employeeId}`);
+        const response = await axios.get(`${API_URL}/employees`);
+
+        console.log()
         return response.data;
+
     } catch (error) {
         console.error('Error fetching employee data:', error);
         throw error;
@@ -71,7 +76,7 @@ export const fetchEmployeeData = async (employeeId: number): Promise<Employee> =
 // Добавление нового сотрудника
 export const addEmployee = async (employee: Employee): Promise<Employee> => {
     try {
-        const response = await axios.post(`${API_URL}/employees/new`, employee);
+        const response = await axios.post(`${API_URL}/employees`, employee);
         return response.data;
     } catch (error) {
         console.error('Error adding employee:', error);
@@ -80,15 +85,12 @@ export const addEmployee = async (employee: Employee): Promise<Employee> => {
 };
 
 // Получение всех департаментов и позиций
-export const fetchDepartmentsAndPositions = async (): Promise<{ departments: Department[], positions: Position[] }> => {
+export const fetchDepartmentsAndPositions = async (): Promise<{ departments: Department[] }> => {
     try {
         const responseDepartment = await axios.get(`${API_URL}/departments`);
         const departments: Department[] = responseDepartment.data;
 
-        const positionsResponse = await axios.get(`${API_URL}/positions`);
-        const positions: Position[] = positionsResponse.data;
-
-        return { departments, positions };
+        return { departments };
     } catch (error) {
         console.error('Error fetching departments and positions:', error);
         throw error;
@@ -96,50 +98,50 @@ export const fetchDepartmentsAndPositions = async (): Promise<{ departments: Dep
 };
 
 // Демо данные для проверки
-export const demoFetchEmployeeData = async (): Promise<Employee> => {
-    const demoEmployee: Employee = {
-        user_photo: 'link-to-photo',
-        first_name: 'John',
-        last_name: 'Doe',
-        email: 'john.doe@example.com',
-        date_of_birth: '1990-01-01',
-        material_status: 'Single',
-        mobile_number: '1234567890',
-        gender: 'Male',
-        nationality: 'American',
-        city: 'New York',
-        address: '123 Main St',
-        employee_type: 'Full-time',
-        working_days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        grade: 'A',
-        work_mail: 'john.doe@workmail.com',
-        office_location: 'New York Office',
-        joing_date: '2020-01-01',
-        slack_link: 'link-to-slack',
-        telegram_link: 'link-to-telegram',
-        github_link: 'link-to-github',
-        departments: [
-            {
-                id: 1,
-                name_department: 'Development Department',
-                countMembers: 2,
-                positions: [
-                    { id: 1, name: 'Developer', departmentId: 1 },
-                    { id: 2, name: 'Senior Developer', departmentId: 1 }
-                ]
-            },
-            {
-                id: 2,
-                name_department: 'Design Department',
-                countMembers: 1,
-                positions: [
-                    { id: 3, name: 'Designer', departmentId: 2 }
-                ]
-            }
-        ]
-    };
+// export const demoFetchEmployeeData = async (): Promise<Employee> => {
+//     const demoEmployee: Employee = {
+//         user_photo: 'link-to-photo',
+//         first_name: 'John',
+//         last_name: 'Doe',
+//         email: 'john.doe@example.com',
+//         date_of_birth: '1990-01-01',
+//         material_status: 'Single',
+//         mobile_number: '1234567890',
+//         gender: 'Male',
+//         nationality: 'American',
+//         city: 'New York',
+//         address: '123 Main St',
+//         employee_type: 'Full-time',
+//         working_days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+//         grade: 'A',
+//         work_mail: 'john.doe@workmail.com',
+//         office_location: 'New York Office',
+//         joing_date: '2020-01-01',
+//         slack_link: 'link-to-slack',
+//         telegram_link: 'link-to-telegram',
+//         github_link: 'link-to-github',
+//         departments: [
+//             {
+//                 id: 1,
+//                 name_department: 'Development Department',
+//                 countMembers: 2,
+//                 positions: [
+//                     { id: 1, name: 'Developer', departmentId: 1 },
+//                     { id: 2, name: 'Senior Developer', departmentId: 1 }
+//                 ]
+//             },
+//             {
+//                 id: 2,
+//                 name_department: 'Design Department',
+//                 countMembers: 1,
+//                 positions: [
+//                     { id: 3, name: 'Designer', departmentId: 2 }
+//                 ]
+//             }
+//         ]
+//     };
 
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(demoEmployee), 1000);
-    });
-};
+//     return new Promise((resolve) => {
+//         setTimeout(() => resolve(demoEmployee), 1000);
+//     });
+// };

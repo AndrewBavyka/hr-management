@@ -11,6 +11,7 @@ const emits = defineEmits(['update:modelValue'])
 
 const formData = reactive({ ...props.modelValue })
 
+console.log(formData)
 watch(
   formData,
   (newVal) => {
@@ -23,16 +24,15 @@ watch(
 <template>
   <awc-stack full-width gap="l">
     <awc-stack gap="l" full-width flex-direction="column">
-      <!-- <AppInput type="text" placeholder="Введите должность" v-model="formData.position" /> -->
-      <AppSelect
-        v-model="formData.department"
-        placeholder="Выберите должность"
-        autoselect-off
-        :options="formData.position"
-      />
       <AppSelect
         v-model="formData.department"
         placeholder="Выберите отдел"
+        autoselect-off
+        :options="formData.departments"
+      />
+      <AppSelect
+        v-model="formData.position"
+        placeholder="Выберите должность"
         autoselect-off
         :options="formData.positions"
       />
@@ -44,12 +44,6 @@ watch(
         type="text"
         placeholder="Оценка"
         v-model="formData.grade"
-      />
-      <AppSelect
-        v-model="formData.departments"
-        placeholder="Выберите отдел"
-        autoselect-off
-        :options="['Developer', 'Design', 'Other']"
       />
     </awc-stack>
 

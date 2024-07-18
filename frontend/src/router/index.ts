@@ -6,7 +6,8 @@ import AllEmployeesView from '@/views/employees/AllEmployeesView.vue'
 import AddEmployeesView from '@/views/employees/AddEmployeesView.vue'
 import AllDepartmentsView from '@/views/departments/AllDepartmentsView.vue'
 import AddDepartmentsView from '@/views/departments/AddDepartmentsView.vue'
-import CompetencyMatrix from '@/views/competency-matrix/CompetencyMatrix.vue'
+import AllCompetencyMatrixView from '@/views/competency-matrix/AllCompetencyMatrixView.vue'
+import AddCompetencyMatrixView from '@/views/competency-matrix/AddCompetencyMatrixView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,7 +50,12 @@ const router = createRouter({
     {
       path: '/competency/',
       name: 'Competency Matrix',
-      component: CompetencyMatrix
+      component: AllCompetencyMatrixView
+    },
+    {
+      path: '/competency/new',
+      name: 'Add Competency Matrix',
+      component: AddCompetencyMatrixView
     },
   ]
 })

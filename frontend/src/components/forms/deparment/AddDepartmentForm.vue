@@ -1,37 +1,31 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import {
-  addDepartments,
-  addPosition,
+  addDepartmentsWithPositions,
   type NewDepartment,
   type NewPosition
 } from '@/api/departments/departments'
 import AppInput from '../../input/AppInput.vue'
 
 const departmentData = reactive<NewDepartment>({
-  name_department: ''
+  name: ''
 })
 
-const positionData = reactive<NewPosition>({
-  name: '',
-  department_id: 0
-})
+const positionsData = reactive<NewPosition[]>([
+  {  name: ''}
+])
 
 const handleSubmit = async () => {
-  console.log({ ...departmentData })
-  console.log({ ...positionData })
+  const createdDepartment = await addDepartmentsWithPositions(departmentData, positionsData)
 
-  const createdDepartment = await addDepartments({
-    name_department: departmentData.name_department
-  })
-
-  positionData.department_id = createdDepartment.id
-
-  await addPosition({ name: positionData.name, department_id: positionData.department_id })
-
-  departmentData.name_department = ''
-  positionData.name = ''
+  departmentData.name = ''
+  positionsData.splice(0, positionsData.length, { name: '' })
 }
+
+const addPositionField = () => {
+  positionsData.push({ name: '' })
+}
+
 </script>
 
 <template>
@@ -42,13 +36,17 @@ const handleSubmit = async () => {
           name="department"
           type="text"
           placeholder="Название отдела"
-          v-model="departmentData.name_department"
+          v-model="departmentData.name"
         />
       </awc-stack>
 
-      <awc-stack full-width align-items="center" gap="l">
-        <AppInput name="position" type="text" placeholder="Должность" v-model="positionData.name" />
-      </awc-stack>
+      <div v-for="(position, index) in positionsData" :key="index">
+        <awc-stack full-width align-items="center" gap="l">
+          <AppInput name="position" type="text" placeholder="Должность" v-model="position.name" />
+        </awc-stack>
+      </div>
+
+      <awc-button @click="addPositionField" type="button">Добавить должность</awc-button>
 
       <awc-stack justify-content="end">
         <awc-button
